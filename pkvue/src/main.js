@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 //进入axios第三方ajax模块
 import axios from "axios"
+// import axios from 'axios'
 //配置axios基础路径
 axios.defaults.baseURL = "http://127.0.0.1:3000/"
     //配置axios 保存session信息

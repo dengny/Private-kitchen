@@ -6,6 +6,10 @@ const session = require("express-session");
 const mysql = require("mysql");
 //导入body-parser模块
 const bodyParser = require('body-parser');
+//引入轮播图模块
+const carouselRouter=require('./routes/carousel');
+//导入菜单模块
+const menuRouter = require('./routes/menu');
 //导入跨域模块
 const cors = require("cors");
 //创建服务器
@@ -30,3 +34,7 @@ server.use(session({
 server.use(express.static("public"));
 //启动监听端口
 server.listen(3000);
+//挂载轮播路由
+server.use("/carousel",carouselRouter);
+//挂载菜单路由
+server.use("/menu",menuRouter);
