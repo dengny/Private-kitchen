@@ -8,6 +8,8 @@ const mysql = require("mysql");
 const bodyParser = require('body-parser');
 //引入轮播图模块
 const carouselRouter=require('./routes/carousel');
+//导入菜单模块
+const menuRouter = require('./routes/menu');
 //导入跨域模块
 const cors = require("cors");
 //创建服务器
@@ -34,3 +36,5 @@ server.use(express.static("public"));
 server.listen(3000);
 //挂载轮播路由
 server.use("/carousel",carouselRouter);
+//挂载菜单路由
+server.use("/menu",menuRouter);

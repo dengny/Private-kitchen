@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 // 引入轮播图模块
 import Carousel from './components/carousel/Carousel.vue'
+//导入菜单组件
+import Menu from './views/Menu.vue'
 
 Vue.use(Router)
 
@@ -12,6 +14,11 @@ export default new Router({
     {
       path:"/Carousel",
       component:Carousel
+    },
+	{
+      path: '/menu',
+      name: 'menu',
+      component: Menu
     },
     {
       path: '/',
