@@ -1,21 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Menu from './views/Menu.vue'
+// 引入轮播图模块
+import Carousel from './components/carousel/Carousel.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    //引入轮播图模块
+    {
+      path:"/Carousel",
+      component:Carousel
+    },
     {
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/menu',
-      name: 'menu',
-      component: Menu
     },
     {
       path: '/about',

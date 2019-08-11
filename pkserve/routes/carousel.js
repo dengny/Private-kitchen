@@ -1,4 +1,5 @@
 const express=require("express");
+console.log('11111')
 //引入连接池
 const pool=require("../pool")
 var router=express.Router();
