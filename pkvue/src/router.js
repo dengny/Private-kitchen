@@ -5,7 +5,7 @@ import Home from './views/Home.vue'
 import Carousel from './components/carousel/Carousel.vue'
 //导入菜单组件
 import Menu from './views/Menu.vue'
-
+import Paging from './components/Paging.vue'//测试
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +19,11 @@ export default new Router({
             path: '/menu',
             name: 'menu',
             component: Menu
+        },
+        {
+            path: '/paging',
+            name: 'paging',
+            component: Paging
         },
         {
             path: '/',
