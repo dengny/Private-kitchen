@@ -1,42 +1,46 @@
 <template>
-  <div class="main">
-    <!-- 食谱类名 -->
-      <div class="Title">
-        全部食谱
-      </div>
-      <!-- 食谱根据收藏、浏览量等分类 -->
-      <div>
-        <ul @click="selection" class="nav">
-          <li :class="item==0?'active':''" data-index="0">综合最佳</li>
-          <li :class="item==1?'active':''" data-index="1">收藏最多</li>
-          <li :class="item==2?'active':''" data-index="2">浏览最多</li>
-        </ul>
-      </div>
-      <!-- 移动红线 -->
-      <div>
-        <div :style="{marginLeft:`${left}rem`}" class="navLine"></div>
-      </div>
-      <!-- 分割线 -->
-      <div>
-        <div class="line"></div>
-      </div>
-      <!-- 菜单根据不同标准列表显示 -->
-      <div>
-        <div v-show="item==0" class="menuList">
-          <div v-for="(elem,i) of menuList" :key="i" class="menu" >
-              <div class="img">
-                <img :src="menuList[i].rImg" alt="">
-              </div>
-              <div class="menuTitle">{{menuList[i].rTitle}}</div>
-              <div class="menusubTitle">{{menuList[i].rSubTitle}}</div>
-          </div>
+  <div>
+    <div class="main">
+      <!-- 食谱类名 -->
+        <div class="Title">
+          全部食谱
         </div>
-        <div v-show="item==1">2</div>
-        <div v-show="item==2">3</div>
-      </div>
+        <!-- 食谱根据收藏、浏览量等分类 -->
+        <div>
+          <ul @click="selection" class="nav">
+            <li :class="item==0?'active':''" data-index="0">综合最佳</li>
+            <li :class="item==1?'active':''" data-index="1">收藏最多</li>
+            <li :class="item==2?'active':''" data-index="2">浏览最多</li>
+          </ul>
+        </div>
+        <!-- 移动红线 -->
+        <div>
+          <div :style="{marginLeft:`${left}rem`}" class="navLine"></div>
+        </div>
+        <!-- 分割线 -->
+        <div>
+          <div class="line"></div>
+        </div>
+        <!-- 菜单根据不同标准列表显示 -->
+        <div>
+          <div v-show="item==0" class="menuList">
+            <div v-for="(elem,i) of menuList" :key="i" class="menu" >
+                <div class="img">
+                  <img :src="menuList[i].rImg" alt="">
+                </div>
+                <div class="menuTitle">{{menuList[i].rTitle}}</div>
+                <div class="menusubTitle">{{menuList[i].rSubTitle}}</div>
+            </div>
+          </div>
+          <div v-show="item==1">2</div>
+          <div v-show="item==2">3</div>
+        </div>
+    </div>
+    <myfooter></myfooter>
   </div>
 </template>
 <script>
+import MyFooter from "../components/MyFooter"
 export default {
   data(){
     return{
@@ -51,6 +55,9 @@ export default {
     ).then(result=>{
       this.menuList=result.data.data;
     });
+  },
+  components:{
+    "myfooter":MyFooter
   },
   methods:{
     selection(e){
@@ -129,7 +136,7 @@ ul.nav li.active{
   border-radius: 3px;
 }
 /* 菜单样式 */
-.menuList>.menu{
+.menuList>.menu{  
   display: inline-block;
   margin-top: 30px;
   width: 227px;

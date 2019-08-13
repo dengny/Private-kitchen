@@ -9,29 +9,30 @@ import Menu from './views/Menu.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    //引入轮播图模块
-    {
-      path:"/Carousel",
-      component:Carousel
-    },
-	{
-      path: '/menu',
-      name: 'menu',
-      component: Menu
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+    routes: [
+        //引入轮播图模块
+        {
+            path: "/Carousel",
+            component: Carousel
+        },
+        {
+            path: '/menu',
+            name: 'menu',
+            component: Menu
+        },
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/about',
+            name: 'about',
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "about" */ './views/About.vue')
+        }
+    ]
 })
