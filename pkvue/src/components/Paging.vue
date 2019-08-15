@@ -7,8 +7,8 @@
        <i class="icon ion-ios-arrow-left"></i>
       </button>
       <!-- 页码 -->
-      <ul class="el-pager" @click="chosePage" @mouseover="hoverMore" @mouseout="leave">
-        <li class="number" v-for="(elem,i) of list" :key="i" v-if="list.length<8||((list.length>7&&i<6)||(list.length>7&&i>list.length-3))" :class="i==0?' active':list.length>7&&i==list.length-2?'icon ion-android-more-horizontal':''">{{list.length>7&&i==list.length-2?"":i+1}}</li>
+      <ul id="ul" class="el-pager" @click="chosePage"  @mouseover="hoverMore" @mouseout="leave">
+        <li class="number" v-for="(elem,i) of list" :key="i" :class="i==0?' active':''">{{elem}}</li>
          <!-- <li class="icon ion-android-more-horizontal">
         <li class="number">2</li>
         <li class="icon ion-ios-arrow-left">
@@ -34,8 +34,129 @@
 export default {
     data(){
       return{
-        page:4,
-        list:[1,2,3,4,5,6,7,8,9,10,11] 
+        count:0,
+        current:0,
+        list:[],
+        page:[1,2,3,4,5,6,7,8,9,10]
+      }
+    },
+    watch:{
+      current(){
+        if(this.page.length<8){
+
+        }else{
+          if(this.current<=4){
+            this.list=[];
+            for(var i=0;i<this.page.length;i++){
+              if(i<6){
+                this.list[i]=this.page[i]
+              }else if(i==this.page.length-1){
+                this.list[this.list.length+1]=this.page[i];
+              }
+            }
+            this.list[this.list.length-2]="";
+            console.log(this.list);
+            var ul = document.getElementById("ul");
+            var lis = ul.children;
+            if(lis[lis.length-2].innerHTML==lis[lis.length-1].innerHTML-1){
+              lis[lis.length-2].className="ion-android-more-horizontal";
+              lis[lis.length-2].innerHTML="";
+            }
+            if(lis[1].innerHTML==""){
+              lis[1].className="number";
+              lis[1].innerHTML="2";
+            }
+          }else if(this.current>this.page.length-4){
+              this.list=[];
+              this.list[0]=this.page[0];
+              this.list[1]="";
+
+              for(var i=0;i<this.page.length;i++){
+                if(i>=this.page.length-6){
+                  this.list.push(this.page[i]);
+                }
+              }
+              console.log(this.list);
+              var ul = document.getElementById("ul");
+              var lis = ul.children;
+              if(lis[1].innerHTML==""){
+                lis[1].className="ion-android-more-horizontal";
+              }
+
+              if(this.current>this.page.length-4){
+                var ul = document.getElementById("ul");
+                var lis = ul.children;
+                if(lis[1].innerHTML==2){
+                  lis[1].className="";
+                  lis[1].className="ion-android-more-horizontal";
+                  lis[1].innerHTML="";
+                }
+                if(lis[lis.length-2].classList.contains("ion-android-more-horizontal")){
+                  lis[lis.length-2].className = "number";
+                  lis[lis.length-2].innerHTML=lis[lis.length-1].innerHTML-1;
+                }
+              }
+            }else{
+              this.list=[];
+              this.list[0]=this.page[0];
+              this.list[1]="";
+              var j = 0;
+              for(var i=0;i<this.page.length;i++){
+                if(this.page[i]==this.current){
+                  j=i;
+                }
+              }
+              for(var i=j-2;i<=j+2;i++){
+                this.list.push(this.page[i]);
+              }
+              this.list.push("");
+              this.list.push(this.page[this.page.length-1]);
+              console.log(this.list);
+              var ul = document.getElementById("ul");
+              var lis = ul.children;
+              for(i=0;i<lis.length;i++){
+                lis[i].className="number";
+                if(lis[i].innerHTML==this.current){
+                  lis[4].classList.add("active");
+                }
+                // if(lis[i].classList.contains("ion-android-more-horizontal")){
+                //   lis[i].classList.remove("ion-android-more-horizontal");
+                //   console.log(i);
+                // }
+              }
+              lis[1].className="ion-android-more-horizontal";
+              lis[1].innerHTML="";
+              lis[7].className="ion-android-more-horizontal";
+              lis[7].innerHTML="";
+            }
+        }
+      }
+    }
+    ,
+    created(){
+      if(this.page.length<8){
+        for(var i=0;i<this.page.length;i++){
+          this.list[i]=this.page[i];
+        }
+      }else{
+        for(var i=0;i<this.page.length;i++){
+          if(i<6){
+            this.list[i]=this.page[i]
+          }else if(i==this.page.length-1){
+            this.list[this.list.length+1]=this.page[i];
+          }
+        }
+        this.list[this.list.length-2]="";
+      }
+    },
+    mounted(){
+      var ul = document.getElementById("ul");
+      var lis = ul.children;
+      if(lis[lis.length-2].innerHTML==""){
+        lis[lis.length-2].className="ion-android-more-horizontal";
+      }
+      if(lis[1].innerHTML==""){
+        lis[1].className="ion-android-more-horizontal";
       }
     },
     methods:{
@@ -49,26 +170,20 @@ export default {
             if(lis[i]!=li){
               lis[i].classList.remove("active");
             }else{
+              this.current=lis[i].innerHTML;
               var btnPrev = document.getElementById("btn-prev");
               var btnNext = document.getElementById("btn-next");
-              if(i==0){
+              if(this.current==0){
                 btnPrev.disabled=true;
               }else{
                 btnPrev.disabled=false;
               }
 
-              if(i==lis.length-1){
+              if(this.current==lis.length-1){
                 btnNext.disabled=true;
                 btnNext.style.color=""
               }else{
                 btnNext.disabled=false;
-              }
-              if(i<=3 && i!=1){
-                lis[1].className="number";
-                lis[1].innerHTML="2";
-              }else if(lis.length>7&&i>3){
-                lis[1].className="icon ion-android-more-horizontal";
-                lis[1].innerHTML="";
               }
             }
           }
