@@ -3,9 +3,11 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 // 引入轮播图模块
 import Carousel from './components/carousel/Carousel.vue'
-//导入菜单组件
+//引入菜单组件
 import Menu from './views/Menu.vue'
-import Paging from './components/Paging.vue'//测试
+//引入杂志详情组件
+import MagazineDetail from './views/MagazineDetail.vue'
+import Paging from './components/Paging.vue' //测试
 Vue.use(Router)
 
 export default new Router({
@@ -19,6 +21,11 @@ export default new Router({
             path: '/menu',
             name: 'menu',
             component: Menu
+        },
+        {
+            path: '/magazineDetail',
+            name: 'magazineDetail',
+            component: MagazineDetail
         },
         {
             path: '/paging',

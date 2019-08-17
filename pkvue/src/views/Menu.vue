@@ -6,17 +6,19 @@
           全部食谱
         </div>
         <!-- 食谱根据收藏、浏览量等分类 -->
-        <div>
+        <!-- 引入子组件 定义一个on的方法监听子组件的状态-->
+        <classNav v-on:value="value" :classNav="classNav" :lineWidth="4.1" :moveDistance="8.1" ></classNav>
+        <!-- <div>
           <ul @click="selection" class="nav">
             <li :class="item==0?'active':''" data-index="0">综合最佳</li>
             <li :class="item==1?'active':''" data-index="1">收藏最多</li>
             <li :class="item==2?'active':''" data-index="2">浏览最多</li>
           </ul>
         </div>
-        <!-- 移动红线 -->
-        <div>
+       移动红线 -->
+        <!-- <div>
           <div :style="{marginLeft:`${left}rem`}" class="navLine"></div>
-        </div>
+        </div> -->
         <!-- 分割线 -->
         <div>
           <div class="line"></div>
@@ -41,12 +43,13 @@
 </template>
 <script>
 import MyFooter from "../components/MyFooter"
+import ClassNav from "./ClassNav"
 export default {
   data(){
     return{
       item:0,
-      left:0,
-      menuList:[]
+      menuList:[],
+      classNav:["综合最佳","收藏最佳","浏览最多"]
     }
   },
   created(){
@@ -57,16 +60,23 @@ export default {
     });
   },
   components:{
-    "myfooter":MyFooter
+    "myfooter":MyFooter,
+    "classNav":ClassNav
   },
   methods:{
-    selection(e){
-      var li = e.target;
-      if(li.nodeName=="LI"){
-        var i=li.getAttribute("data-index")
-        this.item=i;
-        this.left=i*8.1;
-      }
+    // selection(e){
+    //   var li = e.target;
+    //   if(li.nodeName=="LI"){
+    //     var i=li.getAttribute("data-index")
+    //     this.item=i;
+    //     this.left=i*8.1;
+    //   }
+    // }
+
+    // value就是子组件传过来的值
+    value(value){
+      this.item=value;
+      console.log(this.item);
     }
   }
 }
@@ -88,7 +98,7 @@ export default {
   width:960px;
 }
 /* 导航样式 */
-ul.nav li{
+/* ul.nav li{
   position:relative;
   margin-right:4rem;
   cursor: pointer;
@@ -100,22 +110,22 @@ ul.nav li{
   font-weight: 500;
   -webkit-transition: all .8s;
   transition: all .8s;
-}
+} */
 /* 增加导航间距 */
-ul.nav li:before {
+/* ul.nav li:before {
   content: "";
   position: absolute;
   top: -10px;
   left: -10px;
   right: -10px;
   bottom: -10px;
-}
+} */
 /* 导航栏点击时增加属性 */
-ul.nav li.active{
+/* ul.nav li.active{
   color: #d8316c;
-}
+} */
 /* 导航栏下的红线样式 */
-.navLine {
+/* .navLine {
     width: 66px;
     height: 5px;
     border-radius: 5px;
@@ -126,7 +136,7 @@ ul.nav li.active{
     -webkit-transition: all .8s;
     transition: all .8s;
 
-}
+} */
 /* 分割线样式 */
 .line{
   width: 960px;
