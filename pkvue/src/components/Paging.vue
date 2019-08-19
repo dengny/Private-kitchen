@@ -3,7 +3,7 @@
     <!-- 分页组件 -->
     <div class="el-pagination">
       <!-- 上一页按钮 -->
-      <button class="btn-prev" id="btn-prev" disabled>
+      <button @click="move(-1)" class="btn-prev" id="btn-prev" disabled>
        <i class="icon ion-ios-arrow-left"></i>
       </button>
       <!-- 页码 -->
@@ -24,7 +24,7 @@
         <li class="number">247</li> -->
       </ul>
       <!-- 下一页按钮 -->
-      <button class="btn-next" id="btn-next" :disabled="page==0?true:false">
+      <button @click="move(1)" class="btn-next" id="btn-next" :disabled="page==0?true:false">
        <i class="icon ion-ios-arrow-right"></i>
       </button>
     </div>
@@ -35,13 +35,14 @@ export default {
     data(){
       return{
         count:0,
-        current:0,
+        current:1,
         list:[],
-        page:[1,2,3,4,5,6,7,8,9,10]
+        page:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
       }
     },
     watch:{
       current(){
+        this.judge();
         if(this.page.length<8){
 
         }else{
@@ -56,16 +57,26 @@ export default {
             }
             this.list[this.list.length-2]="";
             console.log(this.list);
-            var ul = document.getElementById("ul");
-            var lis = ul.children;
-            if(lis[lis.length-2].innerHTML==lis[lis.length-1].innerHTML-1){
+            setTimeout(()=>{
+              var ul = document.getElementById("ul");
+              var lis = ul.children;
+              this.evaluation(lis);
               lis[lis.length-2].className="ion-android-more-horizontal";
               lis[lis.length-2].innerHTML="";
-            }
-            if(lis[1].innerHTML==""){
-              lis[1].className="number";
-              lis[1].innerHTML="2";
-            }
+
+              for(i=0;i<lis.length;i++){
+                if(lis[i].innerHTML==this.current){
+                  lis[i].classList.add("active");
+                }else{
+                  lis[i].classList.remove("active");
+                }
+              }
+
+              if(lis[1].innerHTML==""){
+                lis[1].className="number";
+                lis[1].innerHTML= "2";
+              }
+            },10);
           }else if(this.current>this.page.length-4){
               this.list=[];
               this.list[0]=this.page[0];
@@ -76,26 +87,28 @@ export default {
                   this.list.push(this.page[i]);
                 }
               }
-              console.log(this.list);
-              var ul = document.getElementById("ul");
-              var lis = ul.children;
-              if(lis[1].innerHTML==""){
-                lis[1].className="ion-android-more-horizontal";
-              }
-
-              if(this.current>this.page.length-4){
+              setTimeout(()=>{
                 var ul = document.getElementById("ul");
                 var lis = ul.children;
-                if(lis[1].innerHTML==2){
-                  lis[1].className="";
-                  lis[1].className="ion-android-more-horizontal";
-                  lis[1].innerHTML="";
+                this.evaluation(lis);
+                lis[1].className="";
+                lis[1].className="ion-android-more-horizontal";
+                lis[1].innerHTML="";
+
+                for(i=0;i<lis.length;i++){
+                  if(lis[i].innerHTML==this.current){
+                    lis[i].classList.add("active");
+                  }else{
+                  lis[i].classList.remove("active");
+                  }
                 }
+
                 if(lis[lis.length-2].classList.contains("ion-android-more-horizontal")){
-                  lis[lis.length-2].className = "number";
-                  lis[lis.length-2].innerHTML=lis[lis.length-1].innerHTML-1;
+                  lis[lis.length-2].className =  "number";
+                  lis[lis.length-2].innerHTML=  lis[lis.length-1].innerHTML-1;
                 }
-              }
+                
+            },10);
             }else{
               this.list=[];
               this.list[0]=this.page[0];
@@ -112,22 +125,27 @@ export default {
               this.list.push("");
               this.list.push(this.page[this.page.length-1]);
               console.log(this.list);
-              var ul = document.getElementById("ul");
-              var lis = ul.children;
-              for(i=0;i<lis.length;i++){
-                lis[i].className="number";
-                if(lis[i].innerHTML==this.current){
-                  lis[4].classList.add("active");
+              setTimeout(()=>{
+
+                var ul = document.getElementById("ul");
+                var lis = ul.children;
+                this.evaluation(lis);
+                for(i=0;i<lis.length;i++){
+                  lis[i].className="number";
+                  if(lis[i].innerHTML==this.current){
+                    console.log(2);
+                    lis[i].classList.add("active");
+                  }
+                   // if(lis[i].classList.contains("ion-android-more-horizontal")){
+                   //   lis[i].classList.remove("ion-android-more-horizontal");
+                   //   console.log(i);
+                   // }
                 }
-                // if(lis[i].classList.contains("ion-android-more-horizontal")){
-                //   lis[i].classList.remove("ion-android-more-horizontal");
-                //   console.log(i);
-                // }
-              }
-              lis[1].className="ion-android-more-horizontal";
-              lis[1].innerHTML="";
-              lis[7].className="ion-android-more-horizontal";
-              lis[7].innerHTML="";
+                lis[1].className="ion-android-more-horizontal";
+                lis[1].innerHTML="";
+                lis[7].className="ion-android-more-horizontal";
+                lis[7].innerHTML="";
+            },10);
             }
         }
       }
@@ -146,7 +164,7 @@ export default {
             this.list[this.list.length+1]=this.page[i];
           }
         }
-        this.list[this.list.length-2]="";
+        this.list[this.list.length-2]=  "";
       }
     },
     mounted(){
@@ -171,20 +189,27 @@ export default {
               lis[i].classList.remove("active");
             }else{
               this.current=lis[i].innerHTML;
-              var btnPrev = document.getElementById("btn-prev");
-              var btnNext = document.getElementById("btn-next");
-              if(this.current==0){
-                btnPrev.disabled=true;
-              }else{
-                btnPrev.disabled=false;
-              }
-
-              if(this.current==lis.length-1){
-                btnNext.disabled=true;
-                btnNext.style.color=""
-              }else{
-                btnNext.disabled=false;
-              }
+            }
+          }
+        }
+      },
+      move(i){
+        if(this.current!=this.page.length&&i==1){
+          this.current++;
+        }
+        if(this.current!=1&&i==-1){
+          this.current--;
+        }
+      },
+      //给页面上lis赋值
+      evaluation(lis){
+        for(var i=0;i<lis.length;i++){
+          if(lis[i].innerHTML!=undefined){
+            lis[i].innerHTML=this.list[i];
+            console.log(lis[i].innerHTML);
+            console.log(this.current);
+            if(lis[i].classList.contains("ion-android-more-horizontal")){
+              lis[i].className="number";
             }
           }
         }
@@ -209,6 +234,23 @@ export default {
         }
       },
       //当有更多页未显示时,鼠标离开更多(...表示更多)时发生事件
+      judge(){
+        var btnPrev = document.getElementById("btn-prev");
+        var btnNext = document.getElementById("btn-next");
+        var ul = document.getElementById("ul");
+        var lis = ul.children;
+        if(this.current==1){
+          btnPrev.disabled=true;
+        }else{
+          btnPrev.disabled=false;
+        }
+        if(this.current==lis[lis.length-1].innerHTML){
+          btnNext.disabled=true;
+          btnNext.style.color=""
+        }else{
+          btnNext.disabled=false;
+        }
+      },
       leave(e){
         var li = e.target;
         if(li.classList.contains("icon")){

@@ -54,7 +54,7 @@
             <!-- 其他杂志 -->
             <div class="maga-detail-slide">
                 <div class="slide-title">
-                    其他《贝太厨房》杂志
+                    其他《私家厨房》杂志
                 </div>
                 <div class="swiper-container swiper">
                     <div class="swiper-wrapper" :style="{marginLeft:marginLeft+'px'}" style="transfrom:translate3d(0px,0px,0px);transition-duration: 0ms;">

@@ -52,7 +52,7 @@
         </mt-tab-container>
         </div>
     </div>
-</template>lo
+</template>
 <script>
 export default {
     data(){
