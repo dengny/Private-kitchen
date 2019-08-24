@@ -86,6 +86,7 @@ router.get('/recipe/day',(req,res)=>{
     var sql='SELECT rId,rTitle,rSubTitle,rClass,rImg FROM kitchen_recipe WHERE rClass!=3 AND rClass!=4'
     pool.query(sql,(err,result)=>{
         if(err)throw err
+        console.log(result);
         res.send(result)
     })
 })

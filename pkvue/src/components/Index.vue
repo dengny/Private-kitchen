@@ -37,7 +37,7 @@
 </template>
 <script>
 // 引入页脚
-import Footer from './footer/Footer.vue'
+import Footer from './MyFooter.vue'
 //引入首页切换菜单
 import MealsChange from './change/MealsChange.vue'
 //引入头部

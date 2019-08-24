@@ -168,6 +168,7 @@ export default {
         get_day(){
             this.axios.get('/search/recipe/day').then(result=>{
                 this.recipe=result.data
+                console.log(result.data);
             })
         },
         //获取周刊杂志数据 随机推荐5个
@@ -340,11 +341,11 @@ export default {
         this.init2();
     },
     created(){
-        this.get_ebook(),
-        this.get_magazine(),
-        this.get_news(),
-        this.get_day(),
-        this.get_video()
+        this.get_ebook();
+        this.get_magazine();
+        this.get_news();
+        this.get_day();
+        this.get_video();
     }
 }
 </script>

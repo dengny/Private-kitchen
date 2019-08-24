@@ -10,6 +10,10 @@ const bodyParser = require('body-parser');
 const carouselRouter=require('./routes/carousel');
 //导入菜单模块
 const menuRouter = require('./routes/menu');
+//导入搜索模块
+const searchRouter = require('./routes/search');
+//导入用户模块
+const userRouter = require('./routes/user')
 //导入跨域模块
 const cors = require("cors");
 //创建服务器
@@ -38,3 +42,5 @@ server.listen(3000);
 server.use("/carousel",carouselRouter);
 //挂载菜单路由
 server.use("/menu",menuRouter);
+server.use("/search",searchRouter);
+server.use("/user",userRouter);
