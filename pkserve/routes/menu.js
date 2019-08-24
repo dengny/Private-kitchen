@@ -10,7 +10,7 @@ router.get('',(req,res)=>{
     pool.query(sql,(err,result)=>{
       if(err) throw err;
       if(result.length>0){
-        res.send({code:1,msg:'查询成功',data:result});
+        res.send({code:1,msg:'查询成功',data:result,page:result.length/20});
       }else{
         res.send({code:-1,msg:'查询失败'});
       }
